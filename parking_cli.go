@@ -9,9 +9,7 @@ import (
 	"time"
 )
 
-const kapasitasParkir = 5
-
-func handleStatus(areaParkir map[string]time.Time) {
+func handleStatus(kapasitasParkir int, areaParkir map[string]time.Time) {
 	fmt.Println("================= STATUS PARKIR ================")
 
 	no := 1
@@ -61,7 +59,7 @@ func handleKeluar(perintah []string,areaParkir map[string]time.Time) (bool, erro
 	return false, errors.New("kendaraan anda sudah keluar dari parkir")
 }
 
-func ParkingCLI() {
+func ParkingCLI(kapasitasParkir int) {
 	areaParkir := make(map[string]time.Time)
 
 	fmt.Println("======================================")
@@ -125,7 +123,7 @@ func ParkingCLI() {
 
 		case "status":
 			fmt.Println("... Akan menampilkan status parkir ...")
-			handleStatus(areaParkir)
+			handleStatus(kapasitasParkir, areaParkir)
 
 		case "exit":
 			fmt.Println("Terima kasih telah menggunakan sistem ini. Program berhenti.")
