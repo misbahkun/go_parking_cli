@@ -31,14 +31,14 @@ func handleParkir(perintah []string, areaParkir map[string]time.Time) (bool, err
 	commands := perintah[1:]
 	noPlat := strings.Join(commands, " ")
 
+	if len(noPlat) < 2 {
+		return false, errors.New("error: plat nomor tidak boleh kosong")
+	}
+
 	_, exist := areaParkir[noPlat]
 
 	if exist {
     return false, errors.New("error: kendaraan dengan plat " + noPlat + " sudah terparkir")
-	}
-
-	if len(noPlat) == 0 {
-		return false, errors.New("error: plat nomor tidak boleh kosong")
 	}
 
 	fmt.Printf("... Akan memproses parkir untuk plat: %s ...\n", noPlat)
@@ -96,6 +96,7 @@ func ParkingCLI(kapasitasParkir int) {
 		case "parkir":
 			if len(perintah) < 2 {
 				fmt.Println("Mohon masukkan nomor plat. Contoh: parkir G 12345 XYZ")
+				continue
 			} else if len(areaParkir) >= kapasitasParkir {
 				fmt.Println("============ MAAF AREA PARKIR SUDAH PENUH ===============")
 				continue
@@ -114,6 +115,7 @@ func ParkingCLI(kapasitasParkir int) {
 		case "keluar":
 			if len(perintah) < 2 {
 				fmt.Println("Mohon masukkan nomor plat. Contoh: keluar B1234XYZ")
+				continue
 			} else {
 				result, err := handleKeluar(perintah, areaParkir)
 
