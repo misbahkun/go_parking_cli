@@ -34,7 +34,11 @@ func handleParkir(perintah []string, areaParkir map[string]time.Time) (bool, err
 	_, exist := areaParkir[noPlat]
 
 	if exist {
-    return false, errors.New("Kendaraan dengan plat " + noPlat + " sudah terparkir")
+    return false, errors.New("error: kendaraan dengan plat " + noPlat + " sudah terparkir")
+	}
+
+	if len(noPlat) == 0 {
+		return false, errors.New("error: plat nomor tidak boleh kosong")
 	}
 
 	fmt.Printf("... Akan memproses parkir untuk plat: %s ...\n", noPlat)
@@ -49,14 +53,15 @@ func handleKeluar(perintah []string,areaParkir map[string]time.Time) (bool, erro
 
 	_, exist := areaParkir[noPlat]
 
-	if exist {
-		fmt.Printf("... Akan memproses keluar untuk plat: %s ...\n", noPlat)
-
-		delete(areaParkir, noPlat)
-    return true, nil
+	if !exist {
+		return false, errors.New("error: tidak ada nomor plat " + noPlat + " di tempat parkir")
 	}
 
-	return false, errors.New("kendaraan anda sudah keluar dari parkir")
+	fmt.Printf("... Akan memproses keluar untuk plat: %s ...\n", noPlat)
+
+	delete(areaParkir, noPlat)
+	
+	return true, nil
 }
 
 func ParkingCLI(kapasitasParkir int) {
