@@ -1,4 +1,4 @@
-package main
+package go_parking_cli
 
 import (
 	"bufio"
@@ -61,7 +61,7 @@ func handleKeluar(perintah []string,areaParkir map[string]time.Time) (bool, erro
 	return false, errors.New("kendaraan anda sudah keluar dari parkir")
 }
 
-func main() {
+func ParkingCLI() {
 	areaParkir := make(map[string]time.Time)
 
 	fmt.Println("======================================")
