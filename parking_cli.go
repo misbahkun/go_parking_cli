@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+func HelloWorld(name *string) string {
+	if name != nil {
+		return "Hello " + *name
+	}
+
+	return "Hello World"
+}
+
 func handleStatus(kapasitasParkir int, areaParkir map[string]time.Time) {
 	fmt.Println("================= STATUS PARKIR ================")
 
